@@ -24,7 +24,7 @@ class NewsController {
         message: "News is empty",
     };
 
-    return res.status(404).json(data);
+    return res.status(200).json(data);
   }
 
   // fungsi untuk menambahkan data news
@@ -108,6 +108,7 @@ class NewsController {
     return res.status(404).json(data);
   }
 
+  // fungsi untuk menampilkan satu resource
   async show(req,res) {
     const { id } = req.params;
     // cari news berdasarkan id
@@ -126,6 +127,105 @@ class NewsController {
     // else
     const data = {
         message: `News not found`,
+    };
+
+    return res.status(404).json(data);
+  }
+
+  // fungsi untuk mencari resource
+  async search(req, res) {
+    const { title } = req.params;
+    // cari news berdasarkan title
+    const news = await News.find(title);
+
+    // refactor handle jika data kosong
+    if (news.length > 0) {
+        const data = {
+            message: `Get searched resource`,
+            data: news,
+        };
+
+        return res.status(200).json(data);
+    }
+    
+    // else
+    const data = {
+        message: `Resource not found`,
+    };
+
+    return res.status(404).json(data);
+  }
+
+  // fungsi untuk mendapatkan sport resource
+  async category(req, res) {
+    const { category } = req.params;
+    // cari news berdasarkan categoru
+    const news = await News.find(category);
+    
+    // refactor handle jika data kosong
+    if (news.length > 0) {
+        const data = {
+            message: `Get sport resource`,
+            total: news.length,
+            data: news,
+        };
+
+        return res.status(200).json(data);
+    }
+    
+    // else
+    const data = {
+        message: `Resource not found`,
+    };
+
+    return res.status(404).json(data);
+  }
+
+  // fungsi untuk mendapatkan finance resource
+  async finance(req, res) {
+    const { category } = req.params;
+    // cari news berdasarkan title
+    const news = await News.find(category);
+
+    // refactor handle jika data kosong
+    if (news.length > 0) {
+        const data = {
+            message: `Get finance resource`,
+            total: news.length,
+            data: news,
+        };
+
+        return res.status(200).json(data);
+    }
+    
+    // else
+    const data = {
+        message: `Resource not found`,
+    };
+
+    return res.status(404).json(data);
+  }
+
+  // fungsi untuk mendapatkan automotive resource
+  async finance(req, res) {
+    const { category } = req.params;
+    // cari news berdasarkan category
+    const news = await News.find(category);
+
+    // refactor handle jika data kosong
+    if (news.length > 0) {
+        const data = {
+            message: `Get automotive resource`,
+            total: news.length,
+            data: news,
+        };
+
+        return res.status(200).json(data);
+    }
+    
+    // else
+    const data = {
+        message: `Resource not found`,
     };
 
     return res.status(404).json(data);
